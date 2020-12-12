@@ -1,0 +1,84 @@
+create table bairro (
+id integer primary key not null auto_increment,
+nome varchar(50),
+tempo varchar(50)
+);
+create table cliente (
+id integer primary key not null auto_increment,
+nome varchar(50),
+telefone varchar(50)
+);
+
+create table endereco (
+id integer primary key not null auto_increment,
+rua varchar(50),
+Numero varchar(50),
+complemento varchar(50),
+pontoreferencia varchar(50),
+bairro_id int,
+cliente_id int,
+
+constraint bairro_fk foreign key (bairro_id)  references bairro(id),
+constraint cliente_fk foreign key (cliente_id)  references cliente(id)
+);
+
+create table funcionario (
+id integer primary key not null auto_increment,
+nome varchar(50),
+telefone varchar(50),
+funcao varchar(50)
+);
+
+
+create table pizza (
+id integer primary key not null auto_increment,
+nome varchar(50),
+situacao varchar(2)
+);
+
+
+
+create table pizza_tam(
+id integer primary key not null auto_increment,
+tamanho varchar(50),
+preço float,
+pizza_id  int,
+constraint pizza_fk foreign key (pizza_id)  references pizza(id)
+
+);
+
+create table pizza_ingrediente (
+id integer primary key not null auto_increment,
+nome varchar(50),
+pizza_id  int,
+constraint pizza_ingrediente_fk foreign key (pizza_id)  references pizza(id)
+);
+
+create table pedido (
+id integer primary key not null auto_increment,
+entregador_id  int,
+atendente_id  int,
+endereco_id int,
+
+constraint entregador_fk foreign key (entregador_id)  references funcionario(id),
+constraint atendente_fk foreign key (atendente_id)  references funcionario(id),
+constraint endereco_fk foreign key (endereco_id)  references endereco(id)
+);
+
+create table item_pedido (
+id integer primary key not null auto_increment,
+pizza_id  int,
+pedido_id  int,
+constraint pedido_fk foreign key (pedido_id)  references pedido(id),
+constraint pizza_item_pedido_fk foreign key (pizza_id)  references pizza(id)
+);
+
+
+
+
+
+
+
+
+
+
